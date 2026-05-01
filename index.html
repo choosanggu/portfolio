@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>추상구 | 포트폴리오</title>
+    <style>
+        @import url('https://googleapis.com');
+
+        :root {
+            --bg-color: #0f172a;
+            --text-main: #94a3b8;
+            --text-bright: #e2e8f0;
+            --accent-color: #5eead4;
+            --accent-bg: rgba(45, 212, 191, 0.1);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 50px;
+			gap: 60px; 
+        }
+
+        /* --- 왼쪽 사이드바 (고정) --- */
+        header {
+            flex: 0 0 300px; /* 왼쪽 너비를 280px로 고정 (기존보다 축소) */
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 100px 0;
+        }
+
+        header h1 { color: var(--text-bright); font-size: 3rem; margin: 0; font-weight: 700; }
+        header h2 { color: var(--text-bright); font-size: 1.25rem; font-weight: 500; margin: 10px 0 20px 0; }
+        header .brief-intro { max-width: 300px; font-size: 1rem; color: var(--text-main); }
+
+        /* 네비게이션 메뉴 */
+        nav { margin-top: 60px; }
+        nav ul { list-style: none; padding: 0; }
+        nav ul li { margin-bottom: 20px; }
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        nav ul li a::before {
+            content: "";
+            width: 30px;
+            height: 1px;
+            background-color: var(--text-main);
+            margin-right: 15px;
+            transition: all 0.3s;
+        }
+        nav ul li a:hover, nav ul li a.active { color: var(--text-bright); }
+        nav ul li a:hover::before, nav ul li a.active::before { width: 60px; background-color: var(--text-bright); }
+
+        /* --- 오른쪽 콘텐츠 (스크롤) --- */
+        main { flex: 1.2; padding: 100px 0; }
+        section { margin-bottom: 120px; scroll-margin-top: 100px; }
+
+        /* 소개 섹션 */
+        #about p { margin-bottom: 20px; font-size: 1.05rem; }
+        #about p span { color: var(--text-bright); font-weight: 500; }
+
+        /* 경력/프로젝트 카드 스타일 */
+        .card {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 24px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        .card:hover {
+            background: rgba(30, 41, 59, 0.5);
+            box-shadow: inset 0 1px 0 0 rgba(148, 163, 184, 0.1);
+        }
+        .card:hover h3 { color: var(--accent-color); }
+
+        .date { flex: 0 0 120px; font-size: 0.75rem; font-weight: 600; color: #64748b; text-transform: uppercase; padding-top: 4px; }
+        .content { flex: 1; }
+        .content h3 { color: var(--text-bright); margin: 0 0 5px 0; font-size: 1.1rem; transition: color 0.3s; }
+        .content .role { color: #94a3b8; font-size: 0.9rem; margin-bottom: 12px; font-weight: 500; }
+        .content .desc { font-size: 0.9rem; margin-bottom: 15px; color: #94a3b8; }
+
+        /* 기술 태그 */
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tags span {
+            color: var(--accent-color);
+            background: var(--accent-bg);
+            font-size: 0.7rem;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-weight: 500;
+        }
+
+        /* 하단 연락처 정보 */
+        .contact-info { font-size: 0.9rem; color: #64748b; margin-top: auto; }
+
+        @media (max-width: 1024px) {
+            .container { flex-direction: column; padding: 0 24px; }
+            header { position: relative; height: auto; padding: 60px 0 40px; }
+            main { padding: 0; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1>추상구</h1>
+            <h2>시니어 풀스택 개발자</h2>
+            <p class="brief-intro">비즈니스 로직을 견고한 시스템으로 구현하는 20년 차 기술 파트너입니다.</p>
+            
+            <nav>
+                <ul>
+                    <li><a href="#about">소개</a></li>
+                    <li><a href="#work">직장경력</a></li>
+                    <li><a href="#freelance">프리랜서 프로젝트</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+        <div class="contact-info">
+            sealove3904@gmail.com<br>
+            010-4905-3754
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. 소개 섹션 -->
+<section id="about">
+    <p>
+        저는 <span>공공, 금융, 커머스</span> 등 다양한 산업 현장에서 대규모 시스템의 설계부터 구축, 운영까지 전 과정을 주도해 온 개발자입니다. 
+        기술의 변화가 빠른 IT 환경에서도 늘 본질에 집중하며, 복잡한 비즈니스 요구사항을 <span>안정적이고 확장성 있는 아키텍처</span>로 변환하는 데 주력해 왔습니다.
+    </p>
+    <p>
+        특히 <span>전자정부프레임워크(eGov)</span> 기반의 백엔드 설계와 <span>Nexacro</span>를 활용한 UI 프레임워크 표준화에 깊이 있는 전문성을 보유하고 있습니다. 
+        자사플랫폼, 보안솔루션, 기업 업무시스템, 표준행정포탈, 공군훈련체계 등 프로젝트를 거치며 <span>복잡한 인터페이스 연동 문제</span>를 해결하고, 대용량 데이터를 처리하는 배치 프로세스를 안정화하는 역할을 수행했습니다.
+    </p>
+    <p>
+        단순히 기능을 개발하는 것을 넘어, 전체 프로젝트의 <span>개발 표준을 수립하고 공통 모듈을 설계</span>하여 팀 전체의 생산성을 높이는 데 기여해 왔습니다. 
+        보안 솔루션의 인증 시험 검증부터 대규모 커머스 플랫폼의 정산 시스템까지, 도메인의 특성을 빠르게 파악하여 기술적 제약 사항을 극복하고 최적의 대안을 제시하는 데 익숙합니다.
+    </p>
+    <p>
+        제가 생각하는 가장 중요한 가치는 프로젝트의 <span>'완성도'와 '신뢰'</span>입니다. 수많은 현장에서 습득한 문제 해결 노하우를 바탕으로 예기치 못한 이슈에 유연하게 대응하며, 
+        비즈니스 목표가 기술로 완벽히 구현되도록 끝까지 책임지고 완수하겠습니다.
+    </p>
+</section>
+
+
+        <!-- 2. 직장경력 섹션 -->
+        <section id="work">
+<!-- 복코퍼레이션 경력 카드 시작 -->
+<div class="card">
+    <div class="date">2024. 05 — 2025. 09</div>
+    <div class="content">
+        <h3>복코퍼레이션 <span>· 개발팀 부장</span></h3>
+        <div class="role">[자사 서비스 통합 플랫폼 구축 및 기술 총괄]</div>
+        
+        <div class="work-detail">
+            <h4># 시스템 생애주기 전 과정 전담 수행</h4>
+            <ul>
+                <li>비즈니스 요구사항 분석을 바탕으로 한 서비스 프로세스 정의 및 아키텍처 설계</li>
+                <li>DB 모델링(MySQL) 및 서버 사이드(eGov Framework) 핵심 로직 구현</li>
+            </ul>
+
+            <h4># 프론트엔드 및 인터페이스 구축</h4>
+            <ul>
+                <li>넥사크로(Nexacro) 및 jQuery를 활용한 사용자 중심의 UI/UX 화면 개발</li>
+                <li>서비스 안정성을 고려한 데이터 통신 및 API 규격 정의</li>
+            </ul>
+
+            <h4># DevOps 기반 개발 환경 및 인프라 구축</h4>
+            <ul>
+                <li>Apache-Tomcat 기반 웹/WAS 서버 환경 설정 및 최적화</li>
+                <li>Jenkins 기반의 CI/CD 파이프라인 구축 및 Git 형상 관리를 통한 개발 효율성 증대</li>
+                <li>팀 내 기술 표준 수립 및 코드 리뷰를 통한 품질 관리 주도</li>
+            </ul>
+        </div>
+
+        <div class="tags">
+            <span>Java(eGov Framework)</span>
+            <span>Nexacro</span>
+            <span>MySQL</span>
+            <span>jQuery</span>
+            <span>Jenkins</span>
+            <span>Git</span>
+            <span>Apache</span>
+            <span>Tomcat</span>
+        </div>
+    </div>
+</div>
+<!-- 복코퍼레이션 경력 카드 끝 -->
+<!-- 투비소프트 경력 시작 -->
+<div class="card">
+    <div class="date">2018. 06 — 2020. 07</div>
+    <div class="content">
+        <h3>투비소프트 <span>· 솔루션사업팀 수석연구원</span></h3>
+        
+        <!-- 프로젝트 1 -->
+        <div class="project-item" style="margin-bottom: 30px;">
+            <div class="role">1. 롯데홈쇼핑 방송/OneTV 통합 시스템 구축</div>
+            <div class="work-detail">
+                <ul>
+                    <li>방송 및 OneTV 파트 개발 PL로서 프로젝트 전 과정의 기술 리딩 및 일정 관리</li>
+                    <li>홈쇼핑 핵심 업무인 실시간 방송 스케줄 관리 및 기타 업무화면 개발</li>
+                    <li>유관 부서와 업무협의를 통한 아키텍처 최적화 및 로직 구현</li>
+                </ul>
+                <div class="tags"><span>Nexacro(UI)</span><span>Java(eGov Framework)</span><span>Oracle</span></div>
+            </div>
+        </div>
+
+        <!-- 프로젝트 2 -->
+        <div class="project-item" style="margin-bottom: 30px;">
+            <div class="role">2. K쇼핑 모바일 간편 로그인 시스템</div>
+            <div class="work-detail">
+                <ul>
+                    <li>K쇼핑 모바일 웹 및 앱 서비스의 사용자 접근성 향상을 위한 간편 로그인 개발</li>
+                    <li>유관 부서와 업무협의를 통한 로직 구현</li>
+                </ul>
+                <div class="tags"><span>Java(eGov Framework)</span><span>JQuery</span><span>Oracle</span><span>Mobile Web/App 연동</span></div>
+            </div>
+        </div>
+
+        <!-- 프로젝트 3 -->
+        <div class="project-item">
+            <div class="role">3. 동행복권 통합 감사시스템 구축</div>
+            <div class="work-detail">
+                <ul>
+                    <li>나눔로또, 전자복권, 인쇄복권 등 전체 복권 시스템의 데이터 투명성 확보를 위한 통합 감사시스템 개발</li>
+                    <li>현업 담당자와의 직접적인 업무협의를 통한 요구사항 분석 및 시스템 설계 주도</li>
+                    <li>복권 발행 및 정산 데이터의 정합성 검증을 위한 핵심 로직 구현</li>
+                </ul>
+                <div class="tags"><span>Java(eGov Framework)</span><span>Oracle</span><span>Nexacro</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 포비즈코리아 경력 시작 -->
+<div class="card">
+    <div class="date">2016. 08 — 2018. 06</div>
+    <div class="content">
+        <h3>포비즈코리아 <span>· 개발팀 차장</span></h3>
+        
+        <!-- 프로젝트 1 -->
+        <div class="project-item" style="margin-bottom: 30px;">
+            <div class="role">1. 정관장몰 커머스 플랫폼 구축 프로젝트</div>
+            <div class="work-detail">
+                <h4># 프로젝트 구축</h4>
+                <ul>
+                    <li>개발 PL로서 정관장몰(KGC) 대규모 이커머스 사이트의 공통, 회원, 결제, 주문 설계 및 성공적 오픈 주도</li>
+                    <li>다양한 외부 솔루션 연동 및 프론트엔드(AngularJS)와 백엔드 간의 API 표준 정의</li>
+                </ul>
+                <h4># 유지보수 및 고도화</h4>
+                <ul>
+                    <li>프로젝트 완료 후 전담 유지보수 및 추가 기능 개발(고도화)을 총괄하며 시스템 안정성 확보 및 서비스 개선</li>
+                </ul>
+                <h4># 성과 및 리딩</h4>
+                <ul>
+                    <li>지속적인 성능 모니터링과 기능 업데이트를 통해 발주처와의 신뢰 관계 유지 및 시스템 운영 효율 극대화</li>
+                    <li>기술 업무협의를 통한 요구사항 구체화 및 추가 개발 건에 대한 일정/인력 관리 수행</li>
+                </ul>
+                <div class="tags"><span>Java(eGov Framework)</span><span>AngularJS</span><span>jQuery</span><span>Redis</span><span>MySQL</span></div>
+            </div>
+        </div>
+
+        <!-- 프로젝트 2 -->
+        <div class="project-item">
+            <div class="role">2. 자사 전자상거래 솔루션(Java 전환) 고도화 및 공통 개발</div>
+            <div class="work-detail">
+                <ul>
+                    <li>기존 PHP 기반 자사 솔루션의 비즈니스 로직 분석 및 Java 기반 차세대 솔루션 아키텍처 설계</li>
+                    <li>전자정부프레임워크(eGov) 환경의 기본 환경 설정 및 시스템 전반의 공통 모듈 개발 주도</li>
+                    <li>대용량 트래픽 대응을 위한 Redis 캐시 서버 연동 및 DB 성능 최적화 구현</li>
+                </ul>
+                <div class="tags"><span>Java(eGov Framework)</span><span>AngularJS</span><span>jQuery</span><span>Redis</span><span>MySQL</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 산하정보기술 경력 시작 -->
+<div class="card">
+    <div class="date">2014. 05 — 2016. 08</div>
+    <div class="content">
+        <h3>산하정보기술 <span>· R&D팀 과장</span></h3>
+        
+        <!-- 프로젝트 1: 자사 솔루션 모듈 개발 -->
+        <div class="project-item" style="margin-bottom: 35px;">
+            <div class="role">[호스피탈리티 자사 솔루션 모듈 개발 및 기술 지원]</div>
+            <div class="work-detail">
+                <h4># 솔루션 표준 프레임워크 수립 및 최적화</h4>
+                <ul>
+                    <li>전자정부프레임워크(eGov) 기반의 안정적인 백엔드 아키텍처 설계 및 솔루션 공통 기반 구축</li>
+                    <li>대량의 트랜잭션 처리를 고려한 데이터 로직 최적화 및 시스템 전반의 성능 고도화 수행</li>
+                </ul>
+
+                <h4># Web POS 결제 시스템 구축 및 하드웨어 연동</h4>
+                <ul>
+                    <li>카드, 현금, 상품권, 마일리지 등 다중 결제 수단을 지원하는 Web POS 모듈 개발</li>
+                    <li>싸인패드 등 외부 하드웨어와의 연동 인터페이스 설계 및 구현</li>
+                </ul>
+
+                <h4># 세무/회계 핵심 모듈 전담 개발</h4>
+                <ul>
+                    <li>연말정산 간소화 서비스 연동 및 원천세/부가세 지급 파일 생성 로직 개발</li>
+                    <li>기업 경리회계 프로세스에 따른 전표 처리 및 데이터 인터페이스 고도화</li>
+                </ul>
+                <div class="tags">
+                    <span>Java(eGov Framework)</span><span>JSP</span><span>Oracle</span><span>jQuery</span><span>Web POS 연동 기술</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 프로젝트 2: 대형 호텔/리조트 구축 -->
+        <div class="project-item">
+            <div class="role">[대형 호텔 및 리조트 통합 시스템 구축 프로젝트]</div>
+            <div class="work-detail">
+                <p class="desc" style="color: var(--text-bright); margin-bottom: 10px;">
+                    <strong>대상 프로젝트:</strong> 롯데 스카이힐, JW 메리어트, 워커힐, 현대 경포대, 푸르미르, 람정 제주 등
+                </p>
+                <ul>
+                    <li>프로젝트 개발 PL로서 발주처와의 기술 업무협의 및 전체 개발 공정 관리</li>
+                    <li>산업군 특화 요구사항(회원, 예약, 정산, 인사 등)을 반영한 커스터마이징 및 모듈 통합 수행</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 산하정보기술 경력 끝 -->
+
+
+<!-- 한길씨앤씨 경력 시작 -->
+<div class="card">
+    <div class="date">2012. 10 — 2014. 05</div>
+    <div class="content">
+        <h3>한길씨앤씨 <span>· TIMS 개발팀 과장</span></h3>
+        
+        <!-- 프로젝트 1 -->
+        <div class="project-item" style="margin-bottom: 35px;">
+            <div class="role">1. 이기종 훈련체계 통합 프로젝트</div>
+            <div class="work-detail">
+                <h4># 훈련체계 통합 아키텍처 설계 및 개발</h4>
+                <ul>
+                    <li>서로 다른 비행 훈련 시스템 간의 통합 운영을 위한 시스템 공통 파트 설계</li>
+                    <li>비행 업무 전반에 대한 프로세스 분석 및 데이터 통합 로직 구현</li>
+                </ul>
+                <h4># 안정적인 운영 환경 최적화</h4>
+                <ul>
+                    <li>WebLogic WAS 기반의 국방 시스템 운영 환경 설정 및 성능 안정화 수행</li>
+                    <li>실무자 및 유관 부서와의 긴밀한 기술 업무협의를 통한 단계적 통합 프로세스 관리</li>
+                </ul>
+                <div class="tags"><span>Java(eGov Framework)</span><span>WebLogic</span><span>iBatis</span><span>Oracle</span><span>OZ Report</span></div>
+            </div>
+        </div>
+
+        <!-- 프로젝트 2 -->
+        <div class="project-item">
+            <div class="role">2. 공군 FA-50 비행훈련체계 구축 프로젝트</div>
+            <div class="work-detail">
+                <h4># 시스템 공통 및 핵심 파트 분석/설계/개발</h4>
+                <ul>
+                    <li>비행(Flight) 및 LCMS(학습콘텐츠관리) 파트의 비즈니스 로직 설계 및 구현</li>
+                    <li>프로젝트 전반의 표준 가이드를 제시하는 시스템 공통 모듈 구축 주도</li>
+                </ul>
+                <h4># 이기종 시스템 간 데이터 연동 및 인터페이스 개발</h4>
+                <ul>
+                    <li>C4I(지휘통제체계) 및 중전소(중앙전산소) 데이터 연동을 위한 연동 개발</li>
+                    <li>안정적인 국방 데이터 송수신을 위한 인터페이스 최적화 수행</li>
+                </ul>
+                <h4># 통합 리포팅 시스템 구축 및 업무 협의</h4>
+                <ul>
+                    <li>OZ Report를 활용한 훈련 데이터 통계 및 분석 리포트 구현</li>
+                    <li>발주처와의 기술 업무협의를 통한 군 특수 요구사항의 시스템 반영</li>
+                </ul>
+                <div class="tags"><span>Java(eGov Framework)</span><span>WebLogic</span><span>iBatis</span><span>Oracle</span><span>OZ Report</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 이커머스테크 경력 시작 -->
+<div class="card">
+    <div class="date">2012. 06 — 2012. 10</div>
+    <div class="content">
+        <h3>이커머스테크 <span>· BPO솔루션팀 대리</span></h3>
+        <div class="project-item">
+            <div class="role">[LG CNS 정산관리 시스템 통합 유지보수 및 고도화]</div>
+            <div class="work-detail">
+                <h4># 대규모 정산 관리 시스템 운영 및 기술 지원</h4>
+                <ul>
+                    <li>가맹점 관리, 입금 조회, 결제 오류 대응 등 정산 프로세스 전반의 안정적 운영 관리</li>
+                    <li>대외 인터페이스 및 신규 결제 모듈 개발</li>
+                    <li>신규 밴(VAN)사 시스템과의 현금영수증 발행 연동 모듈 개발</li>
+                    <li>SAP 연동을 통한 입금·송금·수금 전표 처리 자동화 로직 구현 및 데이터 정합성 검증</li>
+                </ul>
+
+                <h4># 시스템 안정화 및 배치 프로세스 개선</h4>
+                <ul>
+                    <li>백그라운드에서 동작하는 자바 데몬(Java Daemon)의 오류 분석 및 로직 고도화를 통한 처리 속도 향상</li>
+                    <li>결제 및 정산 과정에서 발생하는 복합적인 데이터 오류 추적 및 해결</li>
+                </ul>
+                <div class="tags">
+                    <span>Java(JDK 1.4)</span><span>JBOSS</span><span>Oracle</span><span>SAP 연동</span><span>Java Daemon</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 심네트 경력 시작 -->
+<div class="card">
+    <div class="date">2012. 03 — 2012. 06</div>
+    <div class="content">
+        <h3>심네트 <span>· IT 사업부 대리</span></h3>
+        <div class="project-item">
+            <div class="role">[경상북도 공무원 교육원 교육행정 업무 시스템 구축]</div>
+            <div class="work-detail">
+                <h4># 공공 행정 프로세스 및 교육 업무 개발</h4>
+                <ul>
+                    <li>교육행정 전반의 비즈니스 로직 분석 및 Struts 프레임워크 기반의 업무 기능 구현</li>
+                    <li>OZ Report를 활용한 교육 통계 및 행정 산출물 리포팅 시스템 구축</li>
+                </ul>
+
+                <h4># 대외 기관 연계 및 표준 인터페이스 구축</h4>
+                <ul>
+                    <li>시·도 교육기관 간 데이터 연동 및 온나라(EDI) 시스템 연계 모듈 개발</li>
+                    <li>RFID 기반의 출결/자산 관리 시스템 연동 및 데이터 처리 로직 구현</li>
+                </ul>
+
+                <h4># 보안 및 인증 인프라 적용</h4>
+                <ul>
+                    <li>안전한 행정 서비스를 위한 GPKI 인증서 로그인 및 구간 암호화 적용</li>
+                    <li>개인정보 보호를 위한 DB 암호화 솔루션 적용 및 연동 개발</li>
+                </ul>
+
+                <h4># 기술 협의 및 관리</h4>
+                <ul>
+                    <li>경북도청 및 교육원 관계자와의 직접적인 업무협의를 통해 행정 요구사항을 기술적으로 구체화</li>
+                </ul>
+                <div class="tags">
+                    <span>Java(JDK 1.4)</span><span>JEUS</span><span>Struts</span><span>iBatis</span><span>Oracle</span><span>OZ Report</span><span>EDI</span><span>RFID</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 유비앤티스랩 경력 시작 -->
+<div class="card">
+    <div class="date">2008. 05 — 2011. 11</div>
+    <div class="content">
+        <h3>유비앤티스랩 <span>· 개발팀 과장</span></h3>
+        
+        <!-- 프로젝트 1 -->
+        <div class="project-item" style="margin-bottom: 35px;">
+            <div class="role">1. 행안부 표준 새올행정포탈 고도화 및 전국 확산 사업</div>
+            <div class="work-detail">
+                <h4># 표준 행정포탈 및 멀티게시판 모듈 개발</h4>
+                <ul>
+                    <li>지자체 표준 프레임워크 기반의 행정포탈 리뉴얼 및 자사 멀티게시판 솔루션 최적화 공급</li>
+                    <li>Java, PHP, Flex 등 멀티 플랫폼 기술을 활용한 사용자 친화적 행정 인터페이스 구현</li>
+                </ul>
+
+                <h4># 복합 기간계 시스템 인터페이스 통합</h4>
+                <ul>
+                    <li>핸디(그룹웨어), 온나라 EDI, 알리미, 원클릭 민원 등 공공 핵심 기간계 연동 개발</li>
+                    <li>다양한 외부 모듈과의 유연한 통신을 위한 표준 연동 아키텍처 설계</li>
+                </ul>
+
+                <p class="desc" style="color: var(--accent-color); font-weight: 600; margin-top: 10px;">
+                    [성과] 전국 232개 시군구 중 약 2/3에 달하는 지자체에 시스템 보급 및 안정화 성공
+                </p>
+                <div class="tags">
+                    <span>Java(JDK 1.4)</span><span>Struts</span><span>iBatis</span><span>WebLogic</span><span>Oracle</span><span>Flex</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 프로젝트 2 -->
+        <div class="project-item">
+            <div class="role">2. SSO/IDM/EAM 보안 솔루션 개발 및 구축</div>
+            <div class="work-detail">
+                <h4># 통합 인증 및 권한 관리 솔루션 고도화</h4>
+                <ul>
+                    <li>PKI 기반 인증서 및 SSL 암호화 기술이 적용된 차세대 SSO/EAM 제품 개발 참여</li>
+                    <li>iPlanet, JEUS, Tomcat, WebLogic 등 다양한 WAS 환경에서의 솔루션 최적화 및 호환성 검증</li>
+                </ul>
+
+                <h4># 보안 인프라 연동 및 고객사 맞춤형 구축</h4>
+                <ul>
+                    <li>GPIN, 실명인증, 키보드 보안, SMS/Mail 연동 등 보안 필수 모듈 통합 구축</li>
+                    <li>MS-SQL, MySQL, Oracle 등 이기종 DB 환경에 대응하는 데이터 모델링 및 개발</li>
+                </ul>
+
+                <p class="desc" style="color: var(--accent-color); font-weight: 600; margin-top: 10px;">
+                    [성과] 국정원 보안인증사무국 시험 검증 완수를 통한 제품 신뢰성 확보
+                </p>
+                <div class="tags">
+                    <span>Java(JDK 1.4)</span><span>Struts</span><span>iBatis</span><span>Oracle</span><span>PHP</span><span>SSO/EAM</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 이빛커뮤니티 경력 시작 -->
+<div class="card">
+    <div class="date">2007. 11 — 2008. 05</div>
+    <div class="content">
+        <h3>이빛커뮤니티 <span>· 개발팀 주임</span></h3>
+        
+        <!-- 프로젝트 1 -->
+        <div class="project-item" style="margin-bottom: 35px;">
+            <div class="role">1. Smartro 보너스 포인트 통합 정산 시스템 구축</div>
+            <div class="work-detail">
+                <h4># 포인트 정산 및 거래 화면개발</h4>
+                <ul>
+                    <li>가맹점 및 회원의 포인트 발생, 사용에 따른 포인트 정산 개발</li>
+                    <li>실시간 거래 내역 관리, 포인트 신청 및 오류 내역 추적 시스템 개발</li>
+                    <li>고객 소통을 위한 자동 메일 발송 모듈 구현</li>
+                </ul>
+                <div class="tags">
+                    <span>Java(Servlet)</span><span>JEUS</span><span>DB2</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 프로젝트 2 -->
+        <div class="project-item">
+            <div class="role">2. KT PMS(Project Management System) 고도화</div>
+            <div class="work-detail">
+                <h4># 전사적 공사 관리 화면개발</h4>
+                <ul>
+                    <li>일반/건축/시스템 등 단위 공사별 집행 계획 및 공사 발주 화면개발</li>
+                    <li>착공 관리, 협력업체 진도 보고, 사급자재 실적 등록 등 사업 관리 전반의 화면개발</li>
+                </ul>
+                <div class="tags">
+                    <span>JSP/Java</span><span>Struts</span><span>iBatis</span><span>WebSphere</span><span>Oracle</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 미르나인 경력 시작 (Career Start) -->
+<div class="card">
+    <div class="date">2006. 06 — 2007. 07</div>
+    <div class="content">
+        <h3>미르나인 <span>· 개발팀 사원</span></h3>
+        <div class="project-item">
+            <div class="role">[Linux 기반 인프라 구축 및 서비스 운영]</div>
+            <div class="work-detail">
+                <h4># 리눅스 서버 인프라 구축 및 최적화</h4>
+                <ul>
+                    <li>APM(Apache, PHP, MySQL) 환경 구축 및 DNS, Mail, FTP, Samba 서버 설치/운영</li>
+                    <li>약 50여 개 클라이언트 사이트의 시스템 안정화 및 통합 유지보수 전담</li>
+                </ul>
+
+                <h4># 다양한 산업군별 웹 서비스 개발 및 운영</h4>
+                <ul>
+                    <li>초·중·고·대학교, 공공기관, 일반 기업 및 쇼핑몰 등 폭넓은 도메인의 웹 사이트 구축</li>
+                    <li>장바구니 기반 다중 주문 시스템 및 단품 특화 주문 결제 프로세스 구현</li>
+                </ul>
+
+                <h4># 주요 프로젝트 리스트</h4>
+                <div style="font-size: 0.85rem; margin-top: 10px; color: #64748b;">
+                    <p style="margin: 5px 0;"><strong>• 공공/교육:</strong> 김포교육청(영재교육원/교수학습센터), 한국폴리텍1, 경기기계공고 총동문회 등</p>
+                    <p style="margin: 5px 0;"><strong>• 기업/쇼핑몰:</strong> (주)KT 네트워크, 현대스틸, 씽크스퀘어, 델리스, 앤네트 정보통신 등</p>
+                    <p style="margin: 5px 0;"><strong>• 행사/문화:</strong> 동아시아 영화교류전, 예술제, 한중교류협회 등</p>
+                </div>
+                
+                <div class="tags">
+                    <span>Linux</span><span>Apache</span><span>MySQL</span><span>PHP</span><span>DNS</span><span>Sendmail</span><span>Samba</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            <!-- 추가 직장 경력은 이 아래에 같은 구조로 복사해서 넣으세요 -->
+        </section>
+
+        <!-- 3. 프리랜서 프로젝트 섹션 -->
+<section id="freelance">
+    <h2 class="section-title">프리랜서 프로젝트</h2>
+
+    <!-- 1. RxPlus -->
+    <div class="card">
+        <div class="date">2023.05 — 2024.02</div>
+        <div class="content">
+            <h3>RxPlus 의원맞춤 서비스 고도화</h3>
+            <div class="role">UI 아키텍처 설계 및 공통 모듈 개발 (PL급)</div>
+            <p class="desc">시스템 전반의 UI 표준 가이드를 수립하고 Nexacro 공통 컴포넌트를 설계 및 개발했습니다. 복잡한 의료 행정 데이터 처리를 위한 서버 사이드 인터페이스를 최적화했습니다.</p>
+            <div class="tags">
+                <span>Nexacro N</span><span>Java(Spring)</span><span>Oracle</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. 현대자동차 -->
+    <div class="experience-card card">
+        <div class="date">2022.05 — 2023.03</div>
+        <div class="content">
+            <h3>현대자동차 고객센터 시스템 구축</h3>
+            <div class="role">지도 연동 특화 개발 및 핵심 UI 구현</div>
+            <p class="desc">GIS(지도) 오픈 API 연동 및 고객센터 커스텀 지도 컨트롤러를 개발했습니다. 상담원 업무 효율화를 위해 대용량 고객 데이터 시각화 및 멀티 화면 연동을 구현했습니다.</p>
+            <div class="tags">
+                <span>Nexacro</span><span>Java</span><span>Oracle</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 우리은행 -->
+    <div class="experience-card card">
+        <div class="date">2022.03 — 2022.05</div>
+        <div class="content">
+            <h3>우리은행 IT채널 서비스 고도화</h3>
+            <div class="role">Nexacro UI 프레임워크 공통 개발</div>
+            <p class="desc">금융권의 엄격한 웹 표준을 준수하는 UI 공통 프레임워크를 고도화했습니다. 채널 통합 시스템의 화면 공통 스크립트 및 유틸리티 라이브러리를 개발했습니다.</p>
+            <div class="tags">
+                <span>Nexacro</span><span>Java</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. 코리안리 -->
+    <div class="experience-card card">
+        <div class="date">2022.01 — 2022.04</div>
+        <div class="content">
+            <h3>코리안리 IFRS17 해외지법인 전환 및 통합 구축</h3>
+            <div class="role">부채결산 핵심 로직 및 배치 프로세스 개발</div>
+            <p class="desc">IFRS17 회계 기준에 따른 해외 지법인 부채결산 화면 및 통계 모듈을 개발했습니다. PostgreSQL 기반의 대량 회계 데이터 정산을 위한 배치 성능을 최적화했습니다.</p>
+            <div class="tags">
+                <span>Nexacro</span><span>Java</span><span>PostgreSQL</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. 112 신고시스템 -->
+    <div class="experience-card card">
+        <div class="date">2021.08 — 2021.12</div>
+        <div class="content">
+            <h3>112 신고시스템 고도화</h3>
+            <div class="role">기간계 연동 및 핵심 UI 개발</div>
+            <p class="desc">112 신고 접수 및 처리를 위한 실시간 기간계 인터페이스 연동을 개발했습니다. 국가 재난 안전망 시스템의 높은 안정성을 보장하는 화면 로직을 구현했습니다.</p>
+            <div class="tags">
+                <span>Nexacro</span><span>Java</span><span>Oracle</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. KT 브랜드 오류제보 -->
+    <div class="experience-card card">
+        <div class="date">2011.11 — 2012.02</div>
+        <div class="content">
+            <h3>KT 브랜드 오류제보 시스템 구축</h3>
+            <div class="role">시스템 설계 및 1:1 전담 개발 (Full-Stack)</div>
+            <p class="desc">DB 설계부터 UI 개발까지 전 과정을 단독 수행(참여도 100%)했습니다. 메일 발송 자동화, 전사 통계 대시보드(차트 시각화) 및 마일리지 정책 로직을 구현했습니다.</p>
+            <div class="tags">
+                <span>Java/JSP</span><span>Servlet</span><span>Oracle</span><span>jQuery</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+        
+        <footer style="padding-top: 50px; font-size: 0.8rem; color: #64748b;">
+            Loosely designed in Figma and coded in VS Code. Built with HTML & CSS.
+        </footer>
+    </main>
+</div>
+
+</body>
+</html>
